@@ -1,0 +1,314 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>品牌MBTI 1.2 · 品牌行为观察</title><style>:root{font-family:system-ui,-apple-system,"PingFang SC",sans-serif;color:#203c36;background:#f4f2e9;line-height:1.8}*{box-sizing:border-box}body{margin:0}header{max-width:960px;margin:auto;padding:24px;display:flex;justify-content:space-between;border-bottom:1px solid #ced6ca;gap:16px}header span,small,footer{color:#63756c}main{max-width:820px;margin:48px auto;padding:0 24px}h1{font-size:clamp(32px,6vw,54px);line-height:1.3}h2{font-size:25px;line-height:1.5}h3{margin-top:0}.card,section{background:#fffef8;border:1px solid #d8ded1;border-radius:20px;padding:28px;margin:22px 0}.eyebrow{letter-spacing:.15em;color:#657e68}button{font:inherit;cursor:pointer;border:1px solid #bbcbbd;border-radius:12px;padding:12px 20px;background:transparent;color:inherit}button:hover{background:#e5eddf}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #cf853e;outline-offset:3px}.primary,button[aria-checked=true]{background:#254d40;color:white;border-color:#254d40}.options{display:grid;gap:12px;margin:25px 0}.options button{text-align:left;min-height:54px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}input,textarea,select{font:inherit;width:100%;padding:12px;border:1px solid #bdccbd;border-radius:10px;background:white;color:inherit}label{display:block;margin:16px 0}progress{width:100%;height:9px;accent-color:#42664d}footer{padding:32px 24px;text-align:center;font-size:13px}.row{display:grid;grid-template-columns:65px 1fr 48px;align-items:center;gap:12px;margin:14px 0}.track{background:#e8ecdf;height:12px;border-radius:12px;overflow:hidden}.fill{background:#57785a;height:100%}.error{color:#a2422b}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:13px}.note{background:#e9eedf;padding:16px;border-radius:12px}@media(max-width:550px){main{margin-top:28px;padding:0 16px}.card,section{padding:20px}header{padding:18px;font-size:12px}.actions button{flex:1}}@media print{header,footer,.actions,#feedback{display:none}main{max-width:none;margin:0}section{break-inside:avoid}body{background:white}}
+</style><body><header><b>BRAND / MBTI</b><span>题库1.0 · 报告1.2</span></header><main id="app"></main><footer>探索性未验证模型 · 描述行为倾向，不评价品牌能力或成熟度。<br>数据仅保存在当前浏览器；不会自动发送给研究者。</footer><script>const QUESTIONS = [
+  {
+    "id": 1,
+    "text": "遇到赚钱的机会，我们也会考虑这件事是不是我们真正想做的。",
+    "options": []
+  },
+  {
+    "id": 2,
+    "text": "即使现在生意不错，我们也会主动寻找新的机会。",
+    "options": []
+  },
+  {
+    "id": 3,
+    "text": "遇到没有答案的问题，我们更喜欢先动手试一试。",
+    "options": []
+  },
+  {
+    "id": 4,
+    "text": "品牌经营稳定，但发现一种新的消费需求正在形成。资源有限，你们通常会先做什么？",
+    "options": [
+      [
+        "A",
+        "判断这是不是品牌真正想做的事"
+      ],
+      [
+        "B",
+        "研究这个需求背后还有什么机会"
+      ],
+      [
+        "C",
+        "先做一个简单版本试试看"
+      ],
+      [
+        "D",
+        "找顾客或合作伙伴一起讨论"
+      ],
+      [
+        "E",
+        "看看有没有人愿意买、能不能长期做"
+      ],
+      [
+        "F",
+        "看看现有团队能不能稳定做好"
+      ]
+    ]
+  },
+  {
+    "id": 5,
+    "text": "我们做新产品时，顾客或合作伙伴的想法，真的会改变最后做出来的东西。",
+    "options": []
+  },
+  {
+    "id": 6,
+    "text": "有好几个想做的项目时，我们通常先考虑哪个更有真实需求、能长期做下去。",
+    "options": []
+  },
+  {
+    "id": 7,
+    "text": "同样的问题反复出现时，我们更喜欢定下一套大家都能照着做的办法。",
+    "options": []
+  },
+  {
+    "id": 8,
+    "text": "即使老板不在，团队也知道哪些事情可以做，哪些事情不应该做。",
+    "options": []
+  },
+  {
+    "id": 9,
+    "text": "新产品推出后，顾客反应不如预期。你们通常会先做什么？",
+    "options": [
+      [
+        "A",
+        "想想产品有没有体现我们一直坚持的东西"
+      ],
+      [
+        "B",
+        "重新了解顾客现在真正需要什么"
+      ],
+      [
+        "C",
+        "改一个版本，尽快拿去试"
+      ],
+      [
+        "D",
+        "找顾客或合作伙伴一起重新想办法"
+      ],
+      [
+        "E",
+        "看看价格、销量和销售渠道出了什么问题"
+      ],
+      [
+        "F",
+        "检查开发和交付过程哪里需要改进"
+      ]
+    ]
+  },
+  {
+    "id": 10,
+    "text": "发现消费者有了新需求，我们通常会很快去了解和尝试。",
+    "options": []
+  },
+  {
+    "id": 11,
+    "text": "当团队意见不同时，我们常常会先做个小测试，看看实际效果。",
+    "options": []
+  },
+  {
+    "id": 12,
+    "text": "遇到新的产品或活动机会，我们经常会先找顾客或合作伙伴一起讨论做什么，而不是自己决定好再邀请他们参与。",
+    "options": []
+  },
+  {
+    "id": 13,
+    "text": "品牌有机会进入几个新城市，但资源有限。你们通常会先考虑什么？",
+    "options": [
+      [
+        "A",
+        "哪些城市更适合我们想坚持的方向"
+      ],
+      [
+        "B",
+        "哪些城市有还没被满足的新需求"
+      ],
+      [
+        "C",
+        "先选一个城市做小规模尝试"
+      ],
+      [
+        "D",
+        "哪些地方有适合一起做事的伙伴"
+      ],
+      [
+        "E",
+        "哪些城市的投入和回报更合理"
+      ],
+      [
+        "F",
+        "现有团队能不能支撑跨城市经营"
+      ]
+    ]
+  },
+  {
+    "id": 14,
+    "text": "当我们对一个产品很有信心，但实际销售不好时，我们通常会马上调整产品或卖法，而不是继续坚持原来的想法。",
+    "options": []
+  },
+  {
+    "id": 15,
+    "text": "如果一个团队做得特别好，我们会想办法让其他团队也学会。",
+    "options": []
+  },
+  {
+    "id": 16,
+    "text": "如果原来的做法行不通，我们会尝试新办法，而不是轻易放弃一直坚持的东西。",
+    "options": []
+  },
+  {
+    "id": 17,
+    "text": "顾客开始用一种我们没想到的方式使用产品。你们通常会先做什么？",
+    "options": [
+      [
+        "A",
+        "想想这种用法是否符合品牌想带来的价值"
+      ],
+      [
+        "B",
+        "研究背后是不是出现了新的消费需求"
+      ],
+      [
+        "C",
+        "做一个适合新用法的产品试试看"
+      ],
+      [
+        "D",
+        "邀请这些顾客一起设计新产品"
+      ],
+      [
+        "E",
+        "看看这种用法有没有持续的购买需求"
+      ],
+      [
+        "F",
+        "把这次发现变成以后开发产品的方法"
+      ]
+    ]
+  },
+  {
+    "id": 18,
+    "text": "如果发现一个很有潜力的新方向，我们愿意调整原来的计划。",
+    "options": []
+  },
+  {
+    "id": 19,
+    "text": "我们经常在做产品或服务的过程中，冒出新的想法。",
+    "options": []
+  },
+  {
+    "id": 20,
+    "text": "两个团队对下一步做什么意见不同，但资源只能支持一个方向。通常什么最能帮助你们作决定？",
+    "options": [
+      [
+        "A",
+        "品牌一直坚持的原则"
+      ],
+      [
+        "B",
+        "对未来市场机会的判断"
+      ],
+      [
+        "C",
+        "先做小测试得到的实际结果"
+      ],
+      [
+        "D",
+        "顾客或合作伙伴共同参与后的意见"
+      ],
+      [
+        "E",
+        "真实销售表现和投入产出"
+      ],
+      [
+        "F",
+        "团队已经形成的决策规则"
+      ]
+    ]
+  },
+  {
+    "id": 21,
+    "text": "我们有些重要产品或活动，是和顾客、合作伙伴一起想出来的。",
+    "options": []
+  },
+  {
+    "id": 22,
+    "text": "决定投入更多钱和人手之前，我们通常会先确认这件事能不能持续赚钱。",
+    "options": []
+  },
+  {
+    "id": 23,
+    "text": "生意要扩大时，我们通常会先想清楚怎么安排人和工作，才能让大家配合好。",
+    "options": []
+  },
+  {
+    "id": 24,
+    "text": "一项新业务取得了不错的成绩。接下来，你们最自然的第一反应是什么？",
+    "options": [
+      [
+        "A",
+        "想想怎样让它更好地体现品牌坚持的东西"
+      ],
+      [
+        "B",
+        "看看成功背后还有没有新的机会"
+      ],
+      [
+        "C",
+        "继续做更多新尝试"
+      ],
+      [
+        "D",
+        "找参与者一起拓展更多合作"
+      ],
+      [
+        "E",
+        "想办法让这门生意持续赚钱"
+      ],
+      [
+        "F",
+        "总结经验，让团队以后也能做出来"
+      ]
+    ]
+  }
+];
+const LIFE=[
+{declaration:'你可以改变前进的方式，但不会轻易忘记为什么出发。',world:'你可能更习惯从值得坚持的价值出发理解机会。产品、空间与经营方式可以变化，但这些变化需要与品牌愿意长期创造的价值相连。',choice:'面对新机会，你倾向先确认它与共同原则的关系，再寻找可行的实现方式。核心价值提供方向，现实反馈帮助团队更新方法。',strength:'这种运行方式可能让不同产品与行动保持连续性。共同判断逐渐成为信任与文化的基础，让品牌即使更换载体，仍有机会保持自己的特征。',scenes:['面对有吸引力的合作，先确认哪些标准不能牺牲，再寻找可行方案。','经典产品表现变化时，尝试更新场景和体验，而不急于放弃其承载的价值。','团队需要独立决策时，尝试用共同认可的原则形成判断。'],risk:'需要留意把过去实现价值的方法当成价值本身。如果原则与旧形式绑定，原本提供方向的坚持可能缩小生长空间。',growth:'选一个正在讨论的项目，分别写下“不能放弃的价值”和“可以改变的实现方式”，再用用户反馈检查新方法是否更好地承载价值。',question:'如果换掉现在的产品或空间，你仍然愿意持续创造什么？',loop:'共同价值 → 重构实现方式 → 真实载体 → 用户与商业反馈 → 更新方法'},
+{declaration:'你总能在习以为常的世界里，发现新的可能。',world:'你可能更容易被用户习惯、文化与市场变化吸引。品牌的未来并非只有沿用过去的路径，新的需求也可能为原有价值打开新的空间。',choice:'你倾向从外部信息中寻找方向，了解变化背后的真实需求，再决定是否调整计划。机会需要通过实践变成可以判断的命题。',strength:'这种敏感可能帮助品牌摆脱既有行业与产品定义的束缚。发现若能持续积累，就有机会形成独特的用户理解与机会判断。',scenes:['用户反馈一个小困扰时，进一步了解是否出现了新的使用场景。','研究市场时，也观察其他行业如何改变消费者期待。','遇到尚未成熟的趋势时，先做有限观察与验证。'],risk:'机会不断出现时，团队可能在价值尚未积累前就转向下一件事。变化本身并不等于进化，重要的是哪些发现真正改变了品牌的理解。',growth:'把新机会分成持续观察、有限实验和长期投入三类，为每一类约定需要的证据，让值得留下的发现获得时间。',question:'哪些变化只是让我们感到新鲜，哪些真正扩大了核心价值的生长空间？',loop:'外部变化 → 发现需求 → 重构机会 → 有限验证 → 沉淀认识'},
+{declaration:'你习惯通过创造，让尚未清楚的答案逐渐出现。',world:'你可能更关注尚未实现的产品、服务与体验。有些问题需要在真实制作和使用中才能看清，创造本身也是理解价值的方法。',choice:'你倾向先把可能变成可体验的东西，再从实际反馈中调整判断。想法、原型、体验和重新理解之间，可能构成品牌习惯的学习循环。',strength:'这种方式可能让抽象价值不断获得真实载体。一次次尝试若能留下共同认识，就能逐渐形成品牌自己的产品语言与价值架构。',scenes:['讨论方向时，把抽象设想变成一个可以体验的简单版本。','发现意外使用方式后，尝试新的产品或服务形式。','面对不确定的创意，以有限资源获得实际认识。'],risk:'不断创造可能留下很多成果，却没有留下成果之间的关系。如果每次都重新开始，实验经验便难以积累为品牌自己的能力。',growth:'每轮尝试结束时，记录它验证了什么价值、用户为何在意，以及下一次可以复用什么。再判断应该纵向做深，还是尝试新的载体。',question:'这些不同的创造，共同证明了什么值得长期存在的价值？',loop:'提出可能 → 创造载体 → 真实体验 → 更新理解 → 再次创造'},
+{declaration:'你在与人和场域的连接中，发现品牌继续生长的可能。',world:'你可能将用户、伙伴和社区看作价值创造的参与者。关系带来的不仅是传播和渠道，也可能改变品牌对需求与自身价值的理解。',choice:'面对新项目，你倾向考虑与谁共同创造，以及参与者能够带来哪些不同认识。真实互动帮助品牌逐步形成行动方向。',strength:'这种开放可能形成共同知识、参与感与持续信任。关系若能不断产生新的认识与载体，生态便成为品牌的价值发现系统。',scenes:['顾客提出需求后，邀请他们参与后续讨论与体验。','合作时寻找共同价值，而不仅是把两个标志放在一起。','进入新场域前，理解当地人群及其生活关系。'],risk:'参与者期待不同，可能让品牌消耗精力却失去自己的判断。合作数量增加，也不自动意味着品牌获得了新的能力或认识。',growth:'为一次合作明确共同创造的价值、各自的决策责任，以及结束后希望留下的用户认识、能力或关系。',question:'合作结束后，品牌会比开始前多获得什么可以延续的东西？',loop:'进入关系与场域 → 共同发现 → 共创载体 → 真实反馈 → 沉淀新能力'},
+{declaration:'你让值得创造的价值，拥有持续存在的现实条件。',world:'你可能更关注价值是否被真实选择与支持。需求、支付意愿、成本与交付条件，帮助你理解一个想法能否持续。',choice:'面对资源取舍，你倾向参考真实经营反馈，把投入用于值得继续的方向。市场反馈既帮助选择，也推动产品与实现方式更新。',strength:'这种现实感可能为长期创造建立基础。经营留下的资源与用户认识，能够反过来支持研发、体验改善和新的价值尝试。',scenes:['产品获得好评但购买有限时，检查需求、价格、渠道和交付之间的关系。','多个项目需要投入时，同时考虑持续需求与资源承载。','业务表现变化时，通过真实选择重新理解产品价值。'],risk:'短期可见结果可能遮住需要时间形成的文化、研发和关系价值。经营反馈很重要，但未必能独自定义品牌值得坚持的一切。',growth:'为一个项目分别设定近期经营观察和长期价值积累目标，区分暂时未回报的投入与需要重新判断的模式。',question:'我们怎样让商业支持核心价值，而不在经营过程中逐渐消耗它？',loop:'真实需求 → 价值交换 → 经营反馈 → 调整资源与载体 → 支持下一轮创造'},
+{declaration:'你希望一次有效的创造，成为品牌下一次生长的基础。',world:'你可能更关心成功如何被理解、共享与延续。品牌扩大或成员变化时，重要经验仍应有机会留在组织里。',choice:'面对协作和扩张，你倾向整理分工与方法，让团队能够持续创造和交付。反馈若能进入方法更新，稳定与变化就能共同发生。',strength:'这种方式可能积累共同知识、协作习惯与一致体验，让品牌的特征逐渐超越单个人的临时发挥。',scenes:['某个团队表现出色时，研究哪些经验可以被其他团队理解与使用。','进入新场域时，区分必须一致的体验与可以适应的部分。','关键成员变化时，尝试保留判断依据与重要方法。'],risk:'已有方法可能使组织更擅长重复，却难以回应新的价值空间。标准只有能够被反馈修正，才会支持持续生长。',growth:'选择一套常用方法，同时记录它适用的条件、失效的信号和更新责任，让实验得到的认识能够回到组织。',question:'哪些经验值得延续，哪些方法已经需要为新的机会重新组织？',loop:'有效经验 → 共同方法 → 持续交付 → 外部反馈 → 更新组织能力'}
+];
+function lifeModel(r){const ids=r.major;const names=ids.map(i=>NAMES[i]).join('、');let integration=ids.length>1?'这些倾向提供了不同的行动入口。可以进一步观察它们如何在同一项目中协作：什么推动开始，什么帮助取舍，什么让经验留下。':ids.length?'这描述的是本次作答中相对靠前的行动入口。其余方式仍可能在不同场景发挥作用。':'当前答案不足以突出一个入口。可以先从一次真实项目出发，观察团队如何发现价值、形成载体并接收反馈。';if(ids.includes(2)&&ids.includes(4))integration='创造型与经营型可能形成一种相互校正的循环：实际尝试让想法成为可以体验的价值，真实需求与经营反馈帮助选择哪些值得继续。下一步值得观察的是，这些尝试能否留下共同认识、持续关系与可复用经验，让品牌的创造逐渐形成积累。';return {ids,names,integration};}
+
+'use strict';
+const VERSION='1.0',RULE_VERSION='1.2',KEY='brand-mbti-1.0',NAMES=['信念型','探索型','创造型','共生型','经营型','秩序型'],MAP=[[1,8,16],[2,10,18],[3,11,19],[5,12,21],[6,14,22],[7,15,23]];
+const COPY=[
+['你倾向于依据共同认可的价值判断方向，并调整实现价值的方式。','面对赚钱的新机会，团队可能先讨论它是否符合一直坚持的方向。','共同原则、价值一致性与长期信任','区分坚持的原则与可以更新的方法。'],
+['你倾向于感知外部变化，发现新需求，并愿意调整已有计划。','面对新的消费行为，团队可能先了解背后的需求与机会。','需求洞察、机会记录与适应经验','建立机会筛选原则，给值得投入的方向留下积累时间。'],
+['你倾向于通过实际制作、尝试和修改形成判断。','遇到意见分歧，团队可能先做一个小版本，用实际体验推动讨论。','原型、实验记录与实践知识','定期整理实验得到的认识，让尝试形成可复用的知识。'],
+['你倾向于让顾客和伙伴参与价值创造，关系可能改变最终方案。','启动新项目时，团队可能邀请参与者共同讨论究竟应该做什么。','合作信任、共同知识与参与网络','明确合作边界与决策责任，让开放参与有持续的基础。'],
+['你倾向于通过真实需求、交易反馈与投入产出调整行动。','产品销售不如预期时，团队可能先检查购买、价格和渠道表现。','需求证据、经营知识与持续交换关系','区分短期销售反馈和需要长期培育的品牌价值。'],
+['你倾向于将有效经验变成团队可以理解、执行与传承的方法。','准备扩大业务时，团队可能先确认人员、协作与交付能否承接。','经验方法、协作机制与一致性','为现有方法建立更新机制，留出探索新需求的空间。']];
+let state={answers:{},index:0,brand:'',feedback:{}};let storageOK=true;try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&saved.version===VERSION){state={...state,...saved};state.index=Math.max(0,Math.min(23,Number(state.index)||0));state.answers=state.answers||{};}}catch{storageOK=false}
+const app=document.querySelector('#app');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){try{localStorage.setItem(KEY,JSON.stringify({...state,version:VERSION}));}catch{storageOK=false}}
+function valid(q,a){return a==='unknown'||(q.options.length?q.options.some(o=>o[0]===a):Number.isInteger(a)&&a>=1&&a<=5)}
+function calculate(answers){if(!QUESTIONS.every(q=>valid(q,answers[q.id])))throw Error('请完成全部24题');const scores=MAP.map(ids=>{const v=ids.map(id=>answers[id]).filter(x=>typeof x==='number');return v.length>=2?v.reduce((a,b)=>a+b,0)/v.length:null});const counts=NAMES.map((_,i)=>QUESTIONS.filter(q=>q.options.length&&answers[q.id]==='ABCDEF'[i]).length);const ranked=scores.map((v,i)=>({v,i})).filter(x=>x.v!==null).sort((a,b)=>b.v-a.v);const enough=scores.every(v=>v!==null);const flat=enough&&Math.abs(ranked[0].v-ranked[5].v)<1e-9;const major=enough&&!flat?ranked.filter(x=>Math.abs(x.v-ranked[0].v)<1e-9).map(x=>x.i):[];const rest=ranked.filter(x=>!major.includes(x.i));const companions=major.length===1&&rest.length?rest.filter(x=>Math.abs(x.v-rest[0].v)<1e-9).map(x=>x.i):[];const mean=enough?scores.reduce((a,b)=>a+b,0)/6:null;return {scores,counts,major,lead:major,companions,clear:major.length===1,status:!enough?'insufficient':flat?'undifferentiated':major.length===1?'single':'joint',relative:scores.map(v=>v===null||mean===null?null:v-mean),validScale:MAP.map(ids=>ids.filter(id=>typeof answers[id]==='number').length),scenarioValid:counts.reduce((a,b)=>a+b,0)};}
+function button(label,fn,cls=''){const b=document.createElement('button');b.textContent=label;b.className=cls;b.onclick=fn;return b}
+function home(){app.innerHTML='<p class="eyebrow">品牌生命系统 / 01</p><h1>看见品牌习惯的<br>做事方式。</h1><p>24道题，回顾品牌过去一年的真实经营行为。没有标准正确答案，请选择团队通常的做法。</p><div class="card"><b>18道量表 · 6道情境 · 六维观察</b><p>这是探索性未验证模型，尚未经过大样本心理测量验证。结果反映本次作答者的观察，不是组织客观诊断，也不是能力或成熟度评级。</p><label>品牌名称（选填）<input id="brand" maxlength="80" placeholder="也可以匿名作答"></label><div id="start" class="actions"></div></div>';document.querySelector('#brand').value=state.brand;document.querySelector('#start').append(button(Object.keys(state.answers).length?'继续测评':'开始测评',()=>{state.brand=document.querySelector('#brand').value.trim();save();question()},'primary'));if(QUESTIONS.every(q=>valid(q,state.answers[q.id])))document.querySelector('#start').append(button('用已有答案查看新版报告',()=>{state.brand=document.querySelector('#brand').value.trim();save();report()}));}
+function question(){const q=QUESTIONS[state.index];const done=QUESTIONS.filter(q=>valid(q,state.answers[q.id])).length;app.innerHTML=`<p class="eyebrow">真实行为 / 过去一年</p><p>第 ${state.index+1} / 24 题 · 已作答 ${done} 题</p><progress max="24" value="${done}" aria-label="答题进度"></progress><div class="card"><h2 tabindex="-1">${esc(q.text)}</h2><p>${q.options.length?'请选择团队通常最先做的事，而不是最终会做的全部事情。':'请选择与实际经营行为的符合程度。'}</p><div class="options" role="radiogroup" aria-label="答案选项"></div><p id="error" role="alert" class="error"></p><div class="actions" id="nav"></div></div><small>${storageOK?'答案自动保存在当前浏览器。':'当前浏览器无法保存进度，请在离开前导出记录。'} 缺少实际经历时可选择“暂时无法判断”。</small>`;const options=q.options.length?q.options:[[1,'完全不像'],[2,'不太像'],[3,'有时候像'],[4,'比较像'],[5,'非常像']];for(const [v,t] of [...options,['unknown','暂时无法判断']]){const b=button(`${v==='unknown'?'':v+' · '}${t}`,()=>{state.answers[q.id]=v;save();question()});b.setAttribute('role','radio');b.setAttribute('aria-checked',String(state.answers[q.id]===v));document.querySelector('.options').append(b)}const nav=document.querySelector('#nav');if(state.index>0)nav.append(button('上一题',()=>{state.index--;save();question()}));nav.append(button(state.index===23?'生成报告':'下一题',()=>{if(!valid(q,state.answers[q.id])){document.querySelector('#error').textContent='请选择一个答案，也可选择暂时无法判断。';return}if(state.index<23){state.index++;save();question();app.querySelector('h2').focus()}else{const missing=QUESTIONS.find(q=>!valid(q,state.answers[q.id]));if(missing){state.index=missing.id-1;question();return}state.submittedAt=new Date().toISOString();save();report()}},'primary'));nav.append(button('导出当前记录',()=>download()));}
+function payload(){let result=null;try{result=calculate(state.answers)}catch{}return {assessment_version:VERSION,report_version:RULE_VERSION,result_rule_version:RULE_VERSION,exported_at:new Date().toISOString(),submitted_at:state.submittedAt||null,brand:state.brand,answers:Object.fromEntries(QUESTIONS.map(q=>['Q'+q.id,state.answers[q.id]??null])),result,feedback:state.feedback,model_status:'探索性未验证模型'}}
+function download(){const url=URL.createObjectURL(new Blob([JSON.stringify(payload(),null,2)],{type:'application/json;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='brand-mbti-results-1.2.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function report(){const r=calculate(state.answers),m=lifeModel(r);const list=ids=>ids.map(i=>NAMES[i]).join('、');const sufficient=r.status!=='insufficient';const intro=r.status==='insufficient'?'部分维度的有效观察不足，当前不进行完整人格排序。':r.status==='undifferentiated'?'六维同分，当前作答没有呈现可区分的主要倾向。':'这里的主要倾向指本次作答中并列最高的维度，不是经过统计验证的固定分类。';const paragraphs=key=>m.ids.map(i=>`<p>${m.ids.length>1?'<b>'+NAMES[i]+'：</b>':''}${LIFE[i][key]}</p>`).join('');const block=(n,t,c)=>`<section><p class="eyebrow">0${n} / LIFE</p><h2>${t}</h2>${c}</section>`;const fallback='<p>请回顾一个真实项目：团队先注意到什么、如何决定做什么、实际反馈又改变了什么。当前资料不支持指定人格，但仍可以用这个过程认识品牌的运行方式。</p>';const top=r.scenarioValid?NAMES.filter((_,i)=>r.counts[i]===Math.max(...r.counts)).join('、'):'';const graph=NAMES.map((n,i)=>`<div class="row"><span>${n}</span><div class="track"><div class="fill" style="width:${(r.scores[i]??0)/5*100}%"></div></div><b>${r.scores[i]===null?'不足':r.scores[i].toFixed(2)}</b></div>`).join('');app.innerHTML=`<p class="eyebrow">品牌生命观察 / 题库1.0 · 报告1.2</p><h1>${esc(state.brand||'你的品牌')}<br>如何持续生长</h1><p>当前主要倾向：<b>${m.names||'尚未形成可区分的画像'}</b>${r.companions.length?'<br>伴随人格：'+list(r.companions):''}</p><p class="note">${intro} 探索性未验证模型；反映作答者观察，不衡量品牌能力或成熟度。</p>`+
+block(1,'人格宣言',m.ids.length===1?`<h3>${LIFE[m.ids[0]].declaration}</h3>`:m.ids.includes(2)&&m.ids.includes(4)?'<h3>让想法经过真实尝试，也让值得做的事情拥有持续下去的条件。</h3>':m.ids.length?paragraphs('declaration'):'<h3>从真实创造中，认识品牌自己的生长方式。</h3>')+
+block(2,'你眼中的世界',paragraphs('world')||fallback)+
+block(3,'你如何做出选择',`<p>${m.integration}</p>`+paragraphs('choice')+(top?`<p>在本次假设情境中，${top}对应的做法被较常优先选择。这提醒我们留意：日常习惯之外，具体取舍也可能从不同入口启动；它不会改变量表排序，也不能被当成已经发生的经营事实。</p>`:''))+
+block(4,'你独特的生命力',(paragraphs('strength')||fallback)+'<p>品牌的积累可以是在同一品类中不断做深，也可以是寻找新的载体。关键是不同尝试是否围绕值得持续创造的价值，并把反馈带回下一轮行动。</p>')+
+block(5,'你是否经常这样',`<p>以下是帮助识别倾向的示例，并非对品牌历史的断言。</p>`+(m.ids.length?m.ids.map(i=>`<h3>${NAMES[i]}</h3><ul>${LIFE[i].scenes.map(s=>'<li>'+s+'</li>').join('')}</ul>`).join(''):fallback))+
+block(6,'值得留意的另一面',(paragraphs('risk')||'<p>不要把缺少可区分倾向理解为品牌没有特点。可以先确认作答者是否熟悉相关场景，以及题目是否准确表达了真实做法。</p>')+'<p>这些是发展中值得观察的可能张力，不能直接当作已确认的结构问题。当前问卷没有测量商业模型是否成立，也没有测量核心价值是否清晰。</p>')+
+block(7,'让自己更好地生长',(paragraphs('growth')||fallback)+`<h3>下一轮生长，先问什么？</h3>${m.ids.map(i=>'<p>'+LIFE[i].question+'</p>').join('')}<p>选择一个项目，同时记录：希望持续创造的价值、承载它的产品或体验、用户与商业反馈，以及项目结束后希望留下的认识或能力。用这些实际记录检验画像是否适合自己。</p>`)+
+`<section><h2>测评依据与完整记录</h2><p>题库1.0 · 结果规则1.2 · 报告1.2<br>提交时间：${esc(state.submittedAt||'未记录')}</p><p>六维均分仅为描述性观察。量表与情境分开统计，不加权合并；没有3.5或0.4分类门槛。主要倾向取六维有效时的最高分，精确同分全部保留；六维全同分不指定类型。仅单一最高时，列次高及其并列为伴随人格。排序不代表差异具有统计意义。</p><p>相对分值为各维均分减去本品牌六维平均，不改变排序，不是百分位、概率或品牌之间的比较；它不能提高原问卷的测量精度。</p><details><summary>查看六维画像与独立情境统计</summary>${graph}<table><thead><tr><th>维度</th><th>相对自身平均</th><th>情境次数</th></tr></thead><tbody>${NAMES.map((n,i)=>`<tr><td>${n}</td><td>${r.relative[i]===null?'不足':r.relative[i].toFixed(2)}</td><td>${r.counts[i]}</td></tr>`).join('')}</tbody></table><p>各维有效量表题：${r.validScale.join(' / ')}；有效情境题：${r.scenarioValid}/6。无法判断不记作中间分。每维至少2题有效才计分；${sufficient?'六维有效。':'部分维度不足，不进行完整排序。'}</p></details><details><summary>查看24题原始答案</summary>${QUESTIONS.map(q=>`<p>Q${q.id} ${esc(q.text)}<br>${esc(state.answers[q.id]==='unknown'?'暂时无法判断':state.answers[q.id])}</p>`).join('')}</details><p>本报告借鉴生命力品牌创造法中的“价值—载体—反馈—积累—生长”关系作为解释框架；不从人格分数推断Soul等结构维度的高低，不自动触发品牌结构诊断。</p></section>`+
+`<section id="feedback"><h2>这份画像对你有帮助吗？</h2><p>反馈仅保存在本机，需保存后导出分享。</p><label>反映真实经营的程度<select id="rating"><option value="">请选择</option>${[1,2,3,4,5].map(n=>'<option>'+n+'</option>').join('')}</select></label><label>哪些描述最像你们？<textarea id="accurate" maxlength="3000"></textarea></label><label>哪些描述不像，或哪些题目难以判断？<textarea id="inaccurate" maxlength="3000"></textarea></label><button id="saveFeedback">保存反馈</button><p id="status" role="status"></p></section><div class="actions" id="tools"></div>`;for(const id of ['rating','accurate','inaccurate'])document.getElementById(id).value=state.feedback[id]||'';document.querySelector('#saveFeedback').onclick=()=>{state.feedback=Object.fromEntries(['rating','accurate','inaccurate'].map(id=>[id,document.getElementById(id).value]));save();document.querySelector('#status').textContent=storageOK?'反馈已保存，可下载或复制分享。':'无法保存到本机，请立即下载记录。'};document.querySelector('#tools').append(button('下载数据',download),button('复制数据',async()=>{try{await navigator.clipboard.writeText(JSON.stringify(payload(),null,2));alert('已复制')}catch{alert('复制未成功，请下载数据。')}}),button('打印 / 保存PDF',()=>window.print()),button('修改答案',()=>{state.index=0;question()}),button('重新开始',()=>{if(confirm('清除本机本次答案和反馈？')){try{localStorage.removeItem(KEY)}catch{}state={answers:{},index:0,brand:'',feedback:{}};home()}}));}
+home();
+</script></body></html>
